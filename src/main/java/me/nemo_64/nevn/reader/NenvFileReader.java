@@ -13,6 +13,10 @@ import java.util.Map;
 
 public class NenvFileReader implements NenvReader {
 
+    public static NenvFileReaderBuilder builder() {
+        return new NenvFileReaderBuilder();
+    }
+
     private final Path file;
     private final Charset charset;
     private final char splitter;

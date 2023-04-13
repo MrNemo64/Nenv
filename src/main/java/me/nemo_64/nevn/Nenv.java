@@ -1,5 +1,7 @@
 package me.nemo_64.nevn;
 
+import me.nemo_64.nevn.reader.NenvSystemEnvironmentReader;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
@@ -14,6 +16,12 @@ public class Nenv implements Map<String, Object> {
 
     public static NenvBuilder builder() {
         return new NenvBuilder();
+    }
+
+    public static Nenv systemEnvironment() {
+        return builder()
+                .addReader(new NenvSystemEnvironmentReader())
+                .create();
     }
 
     private final Map<String, EnvironmentEntry<?>> entries;
