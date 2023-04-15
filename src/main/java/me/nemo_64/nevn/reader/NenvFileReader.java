@@ -59,7 +59,7 @@ public class NenvFileReader implements NenvReader {
         }
         if(hasError && throwIfMalformed) {
             throw new NevnReaderException(
-                    String.format("Could not read file %s because it contains malformed lines: %n%s",
+                    String.format("Could not read file %s because it contains malformed lines:%n%s",
                             file,
                             String.join(String.format("%n"), malformedLines)));
         }

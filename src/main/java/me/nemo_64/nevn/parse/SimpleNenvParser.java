@@ -11,13 +11,14 @@ import java.math.BigInteger;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class SimpleNenvParser implements NenvParser {
 
     @Override
     public Map<String, EnvironmentEntry<?>> parse(Map<String, String> lines) {
-        Objects.requireNonNull(lines, "lines");
-        return null;
+        return lines.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> parse(entry.getKey(), entry.getValue())));
     }
 
     protected EnvironmentEntry<?> parse(String key, String value) {
@@ -53,6 +54,8 @@ public class SimpleNenvParser implements NenvParser {
     }
 
     protected Number tryParseNumber(String value) {
+        if("NaN".equals(value))
+            return Double.NaN;
         Integer integerValue = tryParseNumber(value, Integer::parseInt);
         if(integerValue != null)
             return integerValue;
@@ -62,12 +65,11 @@ public class SimpleNenvParser implements NenvParser {
         BigInteger bigIntegerValue = tryParseNumber(value, BigInteger::new);
         if(bigIntegerValue != null)
             return bigIntegerValue;
-        Double doubleValue = tryParseNumber(value, Double::parseDouble);
-        if(doubleValue != null)
-            return doubleValue;
         BigDecimal bigDecimalValue = tryParseNumber(value, BigDecimal::new);
-        if(bigDecimalValue != null)
-            return bigDecimalValue;
+        if(bigDecimalValue != null) {
+            BigDecimal doubleValue = BigDecimal.valueOf(bigDecimalValue.doubleValue());
+            return bigDecimalValue.equals(doubleValue) ? bigDecimalValue.doubleValue() : bigDecimalValue;
+        }
         return null;
     }
 
