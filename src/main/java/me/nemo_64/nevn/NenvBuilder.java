@@ -76,6 +76,7 @@ public class NenvBuilder {
         for(Map.Entry<String, String> entry : lines.entrySet()) {
             Optional<? extends EnvironmentEntry<?>> value = parse(entry.getKey(), entry.getValue());
             value.ifPresent(environmentEntry -> entries.put(entry.getKey(), environmentEntry));
+            // TODO what if value::isEmpty
         }
         return new Nenv(entries, fallback);
     }
