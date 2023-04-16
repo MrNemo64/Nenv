@@ -68,4 +68,9 @@ public class CharacterEnvironmentEntry extends AbstractEnvironmentEntry<Characte
     public Optional<Character> asCharacter() {
         return Optional.of(getValue());
     }
+
+    @Override
+    public Class<? extends Character> getValueClass() {
+        return char.class;
+    }
 }

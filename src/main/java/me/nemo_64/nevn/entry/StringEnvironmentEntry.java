@@ -69,4 +69,8 @@ public class StringEnvironmentEntry extends AbstractEnvironmentEntry<String> {
         return Optional.empty();
     }
 
+    @Override
+    public Class<? extends String> getValueClass() {
+        return String.class;
+    }
 }

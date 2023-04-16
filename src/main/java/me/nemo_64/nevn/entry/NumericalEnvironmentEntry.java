@@ -73,4 +73,8 @@ public class NumericalEnvironmentEntry extends AbstractEnvironmentEntry<Number> 
         return Optional.empty();
     }
 
+    @Override
+    public Class<? extends Number> getValueClass() {
+        return getValue().getClass();
+    }
 }

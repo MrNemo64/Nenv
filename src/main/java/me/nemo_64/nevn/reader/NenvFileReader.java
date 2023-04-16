@@ -79,9 +79,9 @@ public class NenvFileReader implements NenvReader {
             }
             keyBuilder.append(c);
         }
-        for(; index < line.length(); index++) {
-            valueBuilder.append(chars[index]);
-        }
+
+        valueBuilder.append(line.substring(index));
+
         return keyBuilder.length() > 0 && valueBuilder.length() > 0;
     }
 

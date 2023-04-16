@@ -25,7 +25,7 @@ public abstract class AbstractEnvironmentEntry<T> implements EnvironmentEntry<T>
 
     @Override
     public boolean isOf(Class<?> clazz) {
-        return clazz.isAssignableFrom(getValue().getClass());
+        return clazz.isAssignableFrom(getValueClass());
     }
 
     @Override
@@ -38,7 +38,7 @@ public abstract class AbstractEnvironmentEntry<T> implements EnvironmentEntry<T>
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(value);
+        return Objects.hashCode(getValue());
     }
 
     @Override

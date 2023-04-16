@@ -72,4 +72,8 @@ public class BooleanEnvironmentEntry extends AbstractEnvironmentEntry<Boolean> {
         return Optional.empty();
     }
 
+    @Override
+    public Class<? extends Boolean> getValueClass() {
+        return boolean.class;
+    }
 }

@@ -32,6 +32,8 @@ public interface EnvironmentEntry<T> {
 
     boolean isOf(Class<?> clazz);
 
+    Class<? extends T> getValueClass();
+
     T getValue();
 
 }
