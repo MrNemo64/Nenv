@@ -7,22 +7,15 @@ import java.util.Optional;
 
 public abstract class AbstractEnvironmentEntry<T> implements EnvironmentEntry<T> {
 
-    private final String key;
     private final T value;
 
-    protected AbstractEnvironmentEntry(String key, T value) {
-        this.key = Objects.requireNonNull(key, "key").trim();
+    protected AbstractEnvironmentEntry(T value) {
         this.value = Objects.requireNonNull(value, "value");
     }
 
     @Override
     public Optional<String> asString() {
         return Optional.of(getValue().toString());
-    }
-
-    @Override
-    public String getKey() {
-        return key;
     }
 
     @Override
@@ -40,16 +33,16 @@ public abstract class AbstractEnvironmentEntry<T> implements EnvironmentEntry<T>
         if (this == o) return true;
         if (! (o instanceof EnvironmentEntry)) return false;
         EnvironmentEntry<?> that = (EnvironmentEntry<?>) o;
-        return Objects.equals(getKey(), that.getKey()) && Objects.equals(getValue(), that.getValue());
+        return Objects.equals(getValue(), that.getValue());
     }
 
     @Override
     public int hashCode() {
-        return key.hashCode();
+        return Objects.hashCode(value);
     }
 
     @Override
     public String toString() {
-        return getKey() + "=" + getValue();
+        return String.valueOf(getValue());
     }
 }

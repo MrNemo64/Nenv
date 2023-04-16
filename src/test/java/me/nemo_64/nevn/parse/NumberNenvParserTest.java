@@ -19,7 +19,7 @@ class NumberNenvParserTest {
     @ParameterizedTest(name = "{index}: {0} => {1}")
     @MethodSource("testTryParseNumberSource")
     public void testTryParseNumber(String value, NumericalEnvironmentEntry expected) {
-        NumberNenvParser parser = new NumberNenvParser();
+        NumberNenvParser parser = NumberNenvParser.INSTANCE;
         assertEquals(Optional.ofNullable(expected), parser.tryParse(KEY, value));
     }
 
@@ -41,7 +41,7 @@ class NumberNenvParserTest {
     }
 
     private static NumericalEnvironmentEntry entry(Number value) {
-        return new NumericalEnvironmentEntry(KEY, value);
+        return NumericalEnvironmentEntry.of(value);
     }
 
 }

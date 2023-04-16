@@ -8,8 +8,10 @@ public class CharacterNenvParser implements NenvParser<CharacterEnvironmentEntry
 
     public static final CharacterNenvParser INSTANCE = new CharacterNenvParser();
 
+    private CharacterNenvParser() {}
+
     @Override
     public Optional<? extends CharacterEnvironmentEntry> tryParse(String key, String value) {
-        return Optional.ofNullable(value.length() == 1 ? new CharacterEnvironmentEntry(key, value.charAt(0)) : null);
+        return Optional.ofNullable(value.length() == 1 ? CharacterEnvironmentEntry.of(value.charAt(0)) : null);
     }
 }

@@ -1,15 +1,20 @@
 package me.nemo_64.nevn.entry;
 
-import me.nemo_64.nevn.EnvironmentEntry;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Optional;
 
 public class BooleanEnvironmentEntry extends AbstractEnvironmentEntry<Boolean> {
 
-    public BooleanEnvironmentEntry(String key, Boolean value) {
-        super(key, value);
+    public static final BooleanEnvironmentEntry TRUE = new BooleanEnvironmentEntry(true);
+    public static final BooleanEnvironmentEntry FALSE = new BooleanEnvironmentEntry(false);
+
+    public static BooleanEnvironmentEntry of(boolean value) {
+        return value ? TRUE : FALSE;
+    }
+
+    private BooleanEnvironmentEntry(boolean value) {
+        super(value);
     }
 
     @Override
@@ -67,8 +72,4 @@ public class BooleanEnvironmentEntry extends AbstractEnvironmentEntry<Boolean> {
         return Optional.empty();
     }
 
-    @Override
-    public BooleanEnvironmentEntry copy() {
-        return new BooleanEnvironmentEntry(getKey(), getValue());
-    }
 }

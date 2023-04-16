@@ -1,15 +1,17 @@
 package me.nemo_64.nevn.entry;
 
-import me.nemo_64.nevn.EnvironmentEntry;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Optional;
 
 public class NumericalEnvironmentEntry extends AbstractEnvironmentEntry<Number> {
 
-    public NumericalEnvironmentEntry(String key, Number value) {
-        super(key, value);
+    public static NumericalEnvironmentEntry of(Number value) {
+        return new NumericalEnvironmentEntry(value);
+    }
+
+    private NumericalEnvironmentEntry(Number value) {
+        super(value);
     }
 
     @Override
@@ -69,11 +71,6 @@ public class NumericalEnvironmentEntry extends AbstractEnvironmentEntry<Number> 
     @Override
     public Optional<Character> asCharacter() {
         return Optional.empty();
-    }
-
-    @Override
-    public NumericalEnvironmentEntry copy() {
-        return new NumericalEnvironmentEntry(getKey(), getValue());
     }
 
 }

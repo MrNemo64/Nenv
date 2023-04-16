@@ -17,7 +17,7 @@ class CharacterNenvParserTest {
     @ParameterizedTest(name = "{index}: {0} => {1}")
     @MethodSource("testTryParseCharSource")
     public void testTryParseChar(String value, CharacterEnvironmentEntry expected) {
-        CharacterNenvParser parser = new CharacterNenvParser();
+        CharacterNenvParser parser = CharacterNenvParser.INSTANCE;
         assertEquals(Optional.ofNullable(expected), parser.tryParse(KEY, value));
     }
 
@@ -34,7 +34,7 @@ class CharacterNenvParserTest {
     }
 
     private static CharacterEnvironmentEntry entry(char value) {
-        return new CharacterEnvironmentEntry(KEY, value);
+        return CharacterEnvironmentEntry.of(value);
     }
 
 }

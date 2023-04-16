@@ -30,12 +30,8 @@ public interface EnvironmentEntry<T> {
 
     Optional<String> asString();
 
-    EnvironmentEntry<T> copy();
-
     boolean isOf(Class<?> clazz);
 
     T getValue();
-
-    String getKey();
 
 }

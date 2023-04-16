@@ -39,19 +39,19 @@ public class NenvBuilder {
     }
 
     public NenvBuilder withEntry(String key, boolean value) {
-        return withEntry(key, new BooleanEnvironmentEntry(key, value));
+        return withEntry(key, BooleanEnvironmentEntry.of(value));
     }
 
     public NenvBuilder withEntry(String key, Number value) {
-        return withEntry(key, new NumericalEnvironmentEntry(key, value));
+        return withEntry(key, NumericalEnvironmentEntry.of(value));
     }
 
     public NenvBuilder withEntry(String key, String value) {
-        return withEntry(key, new StringEnvironmentEntry(key, value));
+        return withEntry(key, StringEnvironmentEntry.of(value));
     }
 
     public NenvBuilder withEntry(String key, char value) {
-        return withEntry(key, new CharacterEnvironmentEntry(key, value));
+        return withEntry(key, CharacterEnvironmentEntry.of(value));
     }
 
     public NenvBuilder clearParsers() {

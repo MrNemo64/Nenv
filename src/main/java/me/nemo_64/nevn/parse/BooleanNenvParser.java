@@ -8,12 +8,14 @@ public class BooleanNenvParser implements NenvParser<BooleanEnvironmentEntry> {
 
     public static final BooleanNenvParser INSTANCE = new BooleanNenvParser();
 
+    private BooleanNenvParser() {}
+
     @Override
     public Optional<? extends BooleanEnvironmentEntry> tryParse(String key, String value) {
         if("true".equalsIgnoreCase(value)) {
-            return Optional.of(new BooleanEnvironmentEntry(key, Boolean.TRUE));
+            return Optional.of(BooleanEnvironmentEntry.TRUE);
         } else if("false".equalsIgnoreCase(value)) {
-            return Optional.of(new BooleanEnvironmentEntry(key, Boolean.FALSE));
+            return Optional.of(BooleanEnvironmentEntry.FALSE);
         }
         return Optional.empty();
     }
