@@ -1,6 +1,5 @@
 package me.nemo_64.nevn.reader;
 
-import me.nemo_64.nevn.NevnReaderException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -58,7 +57,7 @@ class NenvFileReaderTest {
                 "="
         )));
 
-        NevnReaderException obtainedException = assertThrows(NevnReaderException.class,
+        NenvReaderException obtainedException = assertThrows(NenvReaderException.class,
                 () -> nenvFileReader.parseLines(lines));
         assertEquals(expectedMessage, obtainedException.getMessage());
     }

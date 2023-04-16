@@ -10,6 +10,7 @@ import me.nemo_64.nevn.parse.NenvParser;
 import me.nemo_64.nevn.parse.NumberNenvParser;
 import me.nemo_64.nevn.parse.StringNenvParser;
 import me.nemo_64.nevn.reader.NenvReader;
+import me.nemo_64.nevn.reader.NenvReaderException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,7 +94,7 @@ public class NenvBuilder {
         for(NenvReader reader : readers) {
             try {
                 lines.putAll(reader.read());
-            } catch (NevnReaderException e) {
+            } catch (NenvReaderException e) {
                 if(throwOnException)
                     throw new NenvBuildException(e);
             }

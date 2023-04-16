@@ -1,7 +1,5 @@
 package me.nemo_64.nevn.reader;
 
-import me.nemo_64.nevn.NevnReaderException;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -33,19 +31,19 @@ public class NenvFileReader implements NenvReader {
     }
 
     @Override
-    public Map<String, String> read() throws NevnReaderException {
+    public Map<String, String> read() throws NenvReaderException {
         return parseLines(readLines());
     }
 
-    protected List<String> readLines() throws NevnReaderException {
+    protected List<String> readLines() throws NenvReaderException {
         try {
             return Files.readAllLines(file, charset);
         } catch (IOException e) {
-            throw new NevnReaderException(e);
+            throw new NenvReaderException(e);
         }
     }
 
-    protected Map<String, String> parseLines(List<String> lines) throws NevnReaderException {
+    protected Map<String, String> parseLines(List<String> lines) throws NenvReaderException {
         Map<String, String> entries = new HashMap<>();
         List<String> malformedLines = new ArrayList<>();
         boolean hasError = false;
@@ -58,7 +56,7 @@ public class NenvFileReader implements NenvReader {
             entries.put(keyBuilder.toString(), valueBuilder.toString());
         }
         if(hasError && throwIfMalformed) {
-            throw new NevnReaderException(
+            throw new NenvReaderException(
                     String.format("Could not read file %s because it contains malformed lines:%n%s",
                             file,
                             String.join(String.format("%n"), malformedLines)));
