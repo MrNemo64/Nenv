@@ -1,5 +1,9 @@
 package me.nemo_64.nevn;
 
+import me.nemo_64.nevn.entry.BooleanEnvironmentEntry;
+import me.nemo_64.nevn.entry.CharacterEnvironmentEntry;
+import me.nemo_64.nevn.entry.NumericalEnvironmentEntry;
+import me.nemo_64.nevn.entry.StringEnvironmentEntry;
 import me.nemo_64.nevn.parse.BooleanNenvParser;
 import me.nemo_64.nevn.parse.CharacterNenvParser;
 import me.nemo_64.nevn.parse.NenvParser;
@@ -18,6 +22,7 @@ public class NenvBuilder {
 
     private final List<NenvReader> readers = new ArrayList<>();
     private final List<NenvParser<?>> parsers = new ArrayList<>();
+    private final Map<String, EnvironmentEntry<?>> entries = new HashMap<>();
     private Nenv fallback;
     private boolean throwOnException = false;
 
@@ -26,6 +31,27 @@ public class NenvBuilder {
         parsers.add(NumberNenvParser.INSTANCE);
         parsers.add(CharacterNenvParser.INSTANCE);
         parsers.add(StringNenvParser.INSTANCE);
+    }
+
+    public NenvBuilder withEntry(String key, EnvironmentEntry<?> entry) {
+        entries.put(Objects.requireNonNull(key, "key"), Objects.requireNonNull(entry, "entry"));
+        return this;
+    }
+
+    public NenvBuilder withEntry(String key, boolean value) {
+        return withEntry(key, new BooleanEnvironmentEntry(key, value));
+    }
+
+    public NenvBuilder withEntry(String key, Number value) {
+        return withEntry(key, new NumericalEnvironmentEntry(key, value));
+    }
+
+    public NenvBuilder withEntry(String key, String value) {
+        return withEntry(key, new StringEnvironmentEntry(key, value));
+    }
+
+    public NenvBuilder withEntry(String key, char value) {
+        return withEntry(key, new CharacterEnvironmentEntry(key, value));
     }
 
     public NenvBuilder clearParsers() {
@@ -72,7 +98,6 @@ public class NenvBuilder {
                     throw new NenvBuildException(e);
             }
         }
-        Map<String, EnvironmentEntry<?>> entries = new HashMap<>(lines.size());
         for(Map.Entry<String, String> entry : lines.entrySet()) {
             Optional<? extends EnvironmentEntry<?>> value = parse(entry.getKey(), entry.getValue());
             value.ifPresent(environmentEntry -> entries.put(entry.getKey(), environmentEntry));
